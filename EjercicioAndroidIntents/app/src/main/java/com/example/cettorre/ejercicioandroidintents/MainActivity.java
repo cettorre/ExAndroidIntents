@@ -61,10 +61,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+        btnSelectFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+
+
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final Uri mLocationForPhotos= null;//asignar
+    static final Uri mLocationForPhotos= null;//>>asignar para guardar imagen
 
     public void capturePhoto(String targetFilename) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -76,10 +85,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    static final int REQUEST_IMAGE_GET = 1;
+
+    public void selectImage() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_IMAGE_GET);
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
+            //capture thumbnail from extra
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             mImageView.setImageBitmap(imageBitmap);
@@ -87,7 +109,14 @@ public class MainActivity extends AppCompatActivity {
     //        Bitmap thumbnail = data.getParcelable("data"); //cannot resolve method
             // Do other work with full size photo saved in mLocationForPhotos
 
-      //      image.setImageBitmap(thumbnail);
+
+            //get selected image and assign to mImageView after selectImage method
+            Uri fullPhotoUri = data.getData();
+            mImageView.setImageURI(fullPhotoUri);
+
+
+
+
         }
     }
 }
