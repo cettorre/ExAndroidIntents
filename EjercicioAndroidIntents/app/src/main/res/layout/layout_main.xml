@@ -49,7 +49,7 @@
         app:layout_constraintGuide_begin="215dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSelectFile"
         android:layout_width="127dp"
         android:layout_height="46dp"
         android:layout_marginBottom="8dp"
@@ -89,12 +89,14 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/etInsertWeb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="insert web" />
 
             <Button
+                android:id="@+id/btnInsertWeb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -109,12 +111,14 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/etInsertNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="insert tel. number" />
 
             <Button
+                android:id="@+id/btnInsertNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -128,18 +132,21 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/etDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="date" />
 
             <EditText
+                android:id="@+id/etTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="time" />
 
             <Button
+                android:id="@+id/btnProgram"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -153,12 +160,14 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/etText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="text" />
 
             <Button
+                android:id="@+id/btnOpen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"

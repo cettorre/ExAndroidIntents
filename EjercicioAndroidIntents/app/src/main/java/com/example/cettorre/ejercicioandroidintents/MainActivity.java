@@ -1,13 +1,93 @@
 package com.example.cettorre.ejercicioandroidintents;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    ImageView mImageView;
+
+
+    Button btnTakePhoto;
+    Button btnSelectFile;
+    Button btnInsertWeb;
+    Button btnInsertNumber;
+    Button btnProgram;
+    Button btnOpen;
+
+    EditText etInsertWeb;
+    EditText etInsertNumber;
+    EditText etDate;
+    EditText etTime;
+    EditText etText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
+
+        mImageView=findViewById(R.id.foto);
+
+        btnTakePhoto=findViewById(R.id.btnTakePhoto);
+        btnSelectFile=findViewById(R.id.btnSelectFile);
+        btnInsertWeb=findViewById(R.id.btnInsertWeb);
+        btnInsertNumber=findViewById(R.id.btnInsertNumber);
+        btnProgram=findViewById(R.id.btnProgram);
+        btnOpen=findViewById(R.id.btnOpen);
+
+        etInsertWeb=findViewById(R.id.etInsertWeb);
+        etInsertNumber=findViewById(R.id.etInsertNumber);
+        etDate=findViewById(R.id.etDate);
+        etTime=findViewById(R.id.etTime);
+        etTime=findViewById(R.id.etText);
+
+        btnTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                capturePhoto("com.example.cettorre.ejercicioandroidintents.foto1.jpg");
+
+            }
+        });
+
+
+    }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final Uri mLocationForPhotos= null;//asignar
+
+    public void capturePhoto(String targetFilename) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+      //  intent.putExtra(MediaStore.EXTRA_OUTPUT,                 Uri.withAppendedPath(mLocationForPhotos, targetFilename));
+        //Attempt to invoke virtual method 'android.net.Uri$Builder android.net.Uri.buildUpon()' on a null object reference
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageView.setImageBitmap(imageBitmap);
+
+    //        Bitmap thumbnail = data.getParcelable("data"); //cannot resolve method
+            // Do other work with full size photo saved in mLocationForPhotos
+
+      //      image.setImageBitmap(thumbnail);
+        }
     }
 }
