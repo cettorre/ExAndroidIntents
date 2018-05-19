@@ -3,9 +3,11 @@ package com.example.cettorre.ejercicioandroidintents;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.AlarmClock;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     ImageView mImageView;
-
 
     Button btnTakePhoto;
     Button btnSelectFile;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         etInsertNumber=findViewById(R.id.etInsertNumber);
         etDate=findViewById(R.id.etDate);
         etTime=findViewById(R.id.etTime);
-        etTime=findViewById(R.id.etText);
+        etText=findViewById(R.id.etText);
 
         btnTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +67,60 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectImage();
+            }
+        });
+
+        btnInsertWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("go","gooooooooooooooooooooooooooooooooo");
+
+                Uri webpage = Uri.parse("http://www.google.com");
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(intent);
+
+
+                //??
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }else {
+                    Log.e("go","nooooooooooooooooooooooo");
+
+                }
+
+            }
+        });
+
+        btnInsertNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + etInsertNumber.getText().toString()));
+                startActivity(intent);
+
+
+            }
+        });
+
+        btnProgram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
+                        .putExtra(AlarmClock.EXTRA_HOUR, Integer.valueOf(etDate.getText().toString()))
+                        .putExtra(AlarmClock.EXTRA_MINUTES, Integer.valueOf(etTime.getText().toString()));
+                startActivity(intent);
+
+
+            }
+        });
+
+        btnOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, Main2Activity.class);
+                i.putExtra("text",etText.getText().toString());
+                startActivity(i);
+
             }
         });
 
@@ -113,8 +168,6 @@ public class MainActivity extends AppCompatActivity {
             //get selected image and assign to mImageView after selectImage method
             Uri fullPhotoUri = data.getData();
             mImageView.setImageURI(fullPhotoUri);
-
-
 
 
         }
