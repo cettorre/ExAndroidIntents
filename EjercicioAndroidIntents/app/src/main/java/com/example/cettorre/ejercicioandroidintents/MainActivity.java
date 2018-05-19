@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,10 +106,16 @@ public class MainActivity extends AppCompatActivity {
         btnProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
-                        .putExtra(AlarmClock.EXTRA_HOUR, Integer.valueOf(etDate.getText().toString()))
-                        .putExtra(AlarmClock.EXTRA_MINUTES, Integer.valueOf(etTime.getText().toString()));
-                startActivity(intent);
+
+                try {
+                    Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
+                            .putExtra(AlarmClock.EXTRA_HOUR, Integer.valueOf(etDate.getText().toString()))
+                            .putExtra(AlarmClock.EXTRA_MINUTES, Integer.valueOf(etTime.getText().toString()));
+                    startActivity(intent);
+                }catch (Exception e){
+                    Toast t = Toast.makeText(MainActivity.this, "only numbers are admitted", Toast.LENGTH_SHORT);
+                    t.show();
+                }
 
 
             }
