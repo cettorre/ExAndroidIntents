@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.e("go","gooooooooooooooooooooooooooooooooo");
 
-                Uri webpage = Uri.parse("http://www.google.com");
+                Uri webpage = Uri.parse(etInsertWeb.getText().toString());
                 Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
                 startActivity(intent);
 
